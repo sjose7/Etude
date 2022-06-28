@@ -1,0 +1,37 @@
+<?php
+
+echo CONT_START;
+$q = '
+    SELECT title, image, carts.date_created, carts.product_type, carts.product_id FROM `scores`
+    INNER JOIN `carts` ON scores.score_categories_id=carts.product_type AND scores.id=carts.product_id 
+    WHERE user_session_id=' . $_SESSION["user_id"] . '
+    UNION
+    SELECT title, image, carts.date_created, carts.product_type, carts.product_id FROM `tutorials`
+    INNER JOIN `carts` ON tutorials.id=carts.product_id AND carts.product_type=3
+    WHERE user_session_id=' . $_SESSION["user_id"] . '
+    ORDER BY date_created';
+$r = mysqli_query($dbc, $q);
+echo '
+<div class="row">
+    <div class="twelve columns">
+        <h1>Your Cart</h1>
+        <h5>Check Out Coming Soon!</h5>
+    </div>
+</div>
+';
+while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
+    echo " 
+    <div class='row'>
+        <div class='three columns'>
+            <img src='./images/" . $row['image'] . "' width='100%' />
+        </div>
+        <div class='nine columns'>
+            <p>
+                    " . $row['title'] . "
+            </p>
+            <a href='./cart.php?action=remove&type=" . $row['product_type'] ."&id=" . $row['product_id'] . "' class='button'>Remove From Cart</a>
+        </div>
+    </div>
+    ";
+}
+echo CONT_END;

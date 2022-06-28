@@ -1,0 +1,39 @@
+<?php
+
+echo CONT_START;
+$q = 'SELECT * FROM scores WHERE score_categories_id=' . $category . ' ORDER BY title';
+$r = mysqli_query($dbc, $q);
+?>
+<div class="row">
+    <div class="twelve columns">
+        <h1>
+            <?php
+                if ($_GET['category']==1){
+                    echo "Piano Scores";
+                } elseif ($_GET['category']==2){
+                    echo "Ensemble Scores";
+                } else {
+                    echo "Scores";
+                }
+            ?>
+        </h1>
+    </div>
+</div>
+<?php
+while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
+    echo " 
+    <div class='row'>
+            <div class='three columns'>
+                <img src='./images/" . $row['image'] . "' width='100%' />
+            </div>
+            <div class='nine columns'>
+                <p>
+                    <a href='./view_sheet.php?category=" . $row['score_categories_id'] . "&sheet_id=" . $row['id'] . "'>" . $row['title'] . "</a>
+                </p>
+                <p>Author: " . $row['composer'] . "</p>
+                <a href='./cart.php?action=add&type=" . $row['score_categories_id'] ."&id=" . $row['id'] . "' class='button'>Add To Cart</a>
+            </div>
+        </div>
+    ";
+}
+echo CONT_END;

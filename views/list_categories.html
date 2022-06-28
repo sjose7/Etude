@@ -1,0 +1,42 @@
+<?php echo CONT_START; ?>
+
+<div class="row">
+    <div class="twelve columns">
+        <h1>Sheet Music</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="six columns">
+        <a href="./sheetmusic.php?category=1">
+            <img src="./images/keys.jpeg" width="100%" alt="">
+            <h4>Browse Piano Scores</h4>
+        </a>
+    </div>
+    <div class="six columns">
+        <a href="./sheetmusic.php?category=2">
+            <img src="./images/string.jpeg" width="100%" alt="">
+            <h4>Browse Orchestra Scores</h4>
+        </a>
+    </div>
+</div>
+<hr />
+<?php
+$r = mysqli_query($dbc, "SELECT * FROM scores ORDER BY title");
+while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
+    echo "  
+        <div class='row'>
+            <div class='three columns'>
+                <img src='./images/" . $row['image'] . "' width='100%' />
+            </div>
+            <div class='nine columns'>
+                <p>
+                    <a href='./view_sheet.php?category=" . $row['score_categories_id'] . "&sheet_id=" . $row['id'] . "'>" . $row['title'] . "</a>
+                </p>
+                <p>Author: " . $row['composer'] . "</p>
+                <a href='./cart.php?action=add&type=" . $row['score_categories_id'] ."&id=" . $row['id'] . "' class='button'>Add To Cart</a>
+            </div>
+        </div>
+                
+    ";
+}
+echo CONT_END;

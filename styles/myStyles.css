@@ -1,0 +1,53 @@
+/* NAV */
+.nav {
+    background-color: #401155;
+    padding-bottom: 5px;
+}
+.nav h1, .nav h2{
+    color: white;
+    float: right;
+}
+.nav h1{ font-size: 2em;}
+.nav h2{ font-size: 1em; clear: both;}
+
+.nav ul {
+    list-style: none;
+}
+.nav li {
+    background-color: #5B2971;
+    padding: 5px 20px;
+    border-radius: 3px;
+    color: white;
+    float: right;
+    margin-right: 30px;
+    margin-top: 10px;
+}
+.nav li:hover {
+    background-color: #9974AA;
+}
+.nav li:active {
+    background-color: #0DAD97;
+}
+
+/* BODY */
+.section.body {
+    min-height: calc(100vh - 340px);
+}
+a {
+    color: #794A8D;
+}
+a:hover{
+    color: #9974AA;
+}
+a:active {
+    color: #0DAD97;
+}
+
+.help-block {
+    font-size: .75em;
+}
+
+#cart_alert{
+    text-align: center;
+    color: red;
+}
